@@ -23,15 +23,39 @@ The objective of this work is to support reproducible research on real-world Pyt
 | fuzz     | Run a test input generation from specific bug                                                                         |
 | testall  | Reproduce all bugs buggy and fixed version for all projects                                                           |
 
+# Use Docker
+Clone the repository, build the Docker image, and start a container:
+
+```shell
+docker build -t bugsinpy .
+docker run -dt \
+    -v ./framework:/home/bugsinpy/framework \
+    -v ./projects:/home/bugsinpy/projects \
+    -v ./workspace:/home/workspace
+    --name {your_container_name} bugsinpy
+docker exec -it {your_container_name} bash
+```
+Replace `{your_container_name}` with your preferred container name.
+When working inside the container, if you checkout source code to `/home/workspace/`, it will be accessible on your host machine at `./workspace` due to the mounted volume. For example:
+
+```shell
+bugsinpy-checkout -p youtube-dl -v 0 -i 2 -w /home/workspace
+```
+
+This command checks out the specified bug to `/home/workspace` in the container, which corresponds to `./workspace` on your host.
+
 # Example BugsInPy Command
 
 - Help usage from checkout command:
   - `bugsinpy-checkout --help`
 - Checkout a buggy source code version (youtube-dl, bug 2, buggy version):
   - `bugsinpy-checkout -p youtube-dl -v 0 -i 2 -w /temp/projects`
+- Before compile or test, you should create conda environment
+  - `conda create -n {env_name} -y python=3.7.0`
 - Compile sources and tests, and run tests from current directory:
   - `bugsinpy-compile`
   - `bugsinpy-test`
+
 
 # Example BugsInPy Docker
 
