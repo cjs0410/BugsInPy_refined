@@ -6,7 +6,7 @@ The objective of this work is to support reproducible research on real-world Pyt
 # Steps to set up BugsInPy
 
 1. Clone BugsInPy:
-   - `git clone https://github.com/soarsmu/BugsInPy`
+   - `git clone https://github.com/cjs0410/BugsInPy_refined.git`
 2. Add BugsInPy executables path:
    - `export PATH=$PATH:<bugsinpy_path>/framework/bin`
 
@@ -27,6 +27,7 @@ The objective of this work is to support reproducible research on real-world Pyt
 Clone the repository, build the Docker image, and start a container:
 
 ```shell
+cd $(pwd)/BugsInPy
 docker build -t bugsinpy .
 docker run -dt \
     -v ./framework:/home/bugsinpy/framework \
@@ -50,8 +51,6 @@ This command checks out the specified bug to `/home/workspace` in the container,
   - `bugsinpy-checkout --help`
 - Checkout a buggy source code version (youtube-dl, bug 2, buggy version):
   - `bugsinpy-checkout -p youtube-dl -v 0 -i 2 -w /temp/projects`
-- Before compile or test, you should create conda environment
-  - `conda create -n {env_name} -y python=3.7.0`
 - Compile sources and tests, and run tests from current directory:
   - `bugsinpy-compile`
   - `bugsinpy-test`
