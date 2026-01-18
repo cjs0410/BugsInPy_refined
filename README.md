@@ -30,8 +30,8 @@ Clone the repository, build the Docker image, and start a container:
 cd $(pwd)/BugsInPy
 docker build -t bugsinpy .
 docker run -dt \
-    -v ./framework:/home/bugsinpy/framework \
-    -v ./projects:/home/bugsinpy/projects \
+    -v ./framework:/home/BugsInPy/framework \
+    -v ./projects:/home/BugsInPy/projects \
     -v ./workspace:/home/workspace
     --name {your_container_name} bugsinpy
 docker exec -it {your_container_name} bash
